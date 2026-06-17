@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  ai-api:
+    build: .
+    container_name: student-ai-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://neondb_owner:npg_LqTNzuvpP8n4@ep-super-field-a8iizzha-pooler.eastus2.azure.neon.tech/ai-sms?sslmode=require
+      - DATABASE_URL_SYNC=postgresql://neondb_owner:npg_LqTNzuvpP8n4@ep-super-field-a8iizzha-pooler.eastus2.azure.neon.tech/ai-sms?sslmode=require
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+      - OLLAMA_BASE_URL=http://ollama:11434
+    depends_on:
+      - redis
+      - ollama
+    volumes:
+      - ./storage:/app/storage
+    restart: unless-stopped
+
+  celery-worker:
+    build: .
+    container_name: student-ai-worker
+    command: celery -A app.tasks.celery_app worker --loglevel=info --concurrency=4
+    environment:
+      - DATABASE_URL_SYNC=postgresql://neondb_owner:npg_LqTNzuvpP8n4@ep-super-field-a8iizzha-pooler.eastus2.azure.neon.tech/ai-sms?sslmode=require
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+    depends_on:
+      - redis
+    volumes:
+      - ./storage:/app/storage
+    restart: unless-stopped
+
+  celery-beat:
+    build: .
+    container_name: student-ai-beat
+    command: celery -A app.tasks.celery_app beat --loglevel=info
+    environment:
+      - DATABASE_URL_SYNC=postgresql://neondb_owner:npg_LqTNzuvpP8n4@ep-super-field-a8iizzha-pooler.eastus2.azure.neon.tech/ai-sms?sslmode=require
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: student-ai-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: student-ai-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
