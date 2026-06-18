@@ -12,3 +12,9 @@
 2026-06-14 07:18:02.772 | INFO     | app.main:lifespan:13 - Starting AI Microservice...
 2026-06-14 07:18:17.140 | INFO     | app.main:lifespan:16 - Database tables initialized
 2026-06-14 07:53:00.594 | INFO     | app.main:lifespan:24 - AI Microservice shutdown complete
+2026-06-14 08:02:15.049 | INFO     | app.main:lifespan:13 - Starting AI Microservice...
+2026-06-14 08:02:30.884 | INFO     | app.main:lifespan:16 - Database tables initialized
+2026-06-17 10:43:19.233 | INFO     | app.main:lifespan:13 - Starting AI Microservice...
+2026-06-17 10:43:42.601 | WARNING  | app.main:lifespan:18 - Database initialization skipped: (psycopg2.OperationalError) connection to server at "ep-super-field-a8iizzha-pooler.eastus2.azure.neon.tech" (52.167.188.143), port 5432 failed: SSL error: unexpected eof while reading
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
