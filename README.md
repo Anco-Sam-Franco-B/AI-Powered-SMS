@@ -1,53 +1,67 @@
-# AI-Powered SMS
+# AI-Powered Student Management System (AI-Powered-SMS)
 
-Turn ordinary SMS into actionable conversations — automate replies, summarize long threads, and schedule campaigns with an AI assistant built on JavaScript and Python.
+A concise, maintainable Student Management System (SMS) that combines a React frontend, an Express backend, and a Python/FastAPI AI service for analytics and machine learning features.
 
-## Project overview
+## Quick start
 
-AI-Powered SMS is a lightweight assistant for sending, receiving, summarizing, and automating SMS messaging using modern NLP. The project pairs a JavaScript frontend with Python-based NLP services to provide AI-generated reply suggestions, conversation summarization, message templates, and scheduling. It's designed to be extensible and Twilio-compatible so teams can quickly add automation and analytics to existing SMS workflows.
+1. Clone the repo:
 
-## Key features
+   ```bash
+   git clone https://github.com/Anco-Sam-Franco-B/AI-Powered-SMS.git
+   cd AI-Powered-SMS
+   ```
 
-- Send & receive SMS (Twilio-compatible)
-- AI-generated reply suggestions and auto-responses
-- Message and thread summarization
-- Templates, scheduling, and campaign automation
-- Basic analytics & delivery reporting
-- Extensible architecture: JavaScript frontend + Python NLP backend
+2. Run services (Docker Compose recommended):
 
-## Tech stack
+   ```bash
+   # from repository root if a docker-compose.yml exists
+   docker compose up --build
+   ```
 
-- Languages: JavaScript (frontend, ~68.5%), Python (NLP services, ~25.2%), CSS (~6.1%)
-- Likely components: React/Vue UI, Node.js server for web/API, Python service (Flask/FastAPI) for NLP, Twilio (or compatible) integration for SMS delivery
+3. Or run locally per service:
 
-## Quickstart
+   - Frontend:
+     ```bash
+     cd frontend
+     npm install
+     npm run dev
+     ```
 
-1. Clone the repo and install dependencies for both frontend and backend:
+   - Backend (Express):
+     ```bash
+     cd backend
+     npm install
+     npm run dev
+     ```
 
-   - Frontend: npm install (or yarn)
-   - Backend: pip install -r requirements.txt
+   - AI Backend (FastAPI):
+     ```bash
+     cd backend-ai
+     pip install -r requirements.txt
+     uvicorn app.main:app --reload --port 8000
+     ```
 
-2. Create a .env with your SMS provider (e.g., Twilio) credentials and model/API keys. Example variables:
+## Features
 
-   - TWILIO_ACCOUNT_SID=
-   - TWILIO_AUTH_TOKEN=
-   - SMS_FROM_NUMBER=
-   - NLP_SERVICE_URL=
-   - NLP_API_KEY=
+- Student CRUD and lifecycle management
+- Wallet and financial transactions
+- AI-powered analytics and predictions
+- NLP utilities and embeddings (RAG)
+- Asynchronous jobs with Celery
+- Docker-friendly and ready for cloud deployment
 
-3. Run the backend service, start the frontend, and open the web UI to test sending and receiving messages:
+## Project structure
 
-   - Backend: python -m uvicorn app.main:app --reload
-   - Frontend: npm start
+Top-level folders: `frontend/`, `backend/`, and `backend-ai/`. See the full project for more details.
 
 ## Contributing
 
-Contributions are welcome — open issues or pull requests for improvements, bug fixes, or new features.
+Contributions are welcome. Please open issues to discuss features or bug fixes, and send pull requests against the repository's default branch.
 
 ## License
 
-Specify a license (e.g., MIT) in LICENSE.md.
+This project is licensed under the ISC License — see the LICENSE file for details.
 
----
-
-(Updated README with longer project description and usage hints.)
+## Contact
+Author: Tr. Sam Franco BYIRINGIRO
+Repository: https://github.com/Anco-Sam-Franco-B/AI-Powered-SMS
